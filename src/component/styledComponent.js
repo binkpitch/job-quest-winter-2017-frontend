@@ -13,13 +13,54 @@ const fontSizeTheme = {
   small: '16px'
 }
 
+export const MainWrapper = styled.div`
+  width: 80%;
+  box-sizing: border-box;
+  padding: 0 10%;
+  margin: auto;
+  background-color: ${({ white }) => white ? '#FFFFFF' : '#DDDDDD'};
+  height: auto;
+  border: 2px solid #000000;
+`
+
+export const Row = styled.div`
+  margin: 30px 0;
+  display: flex;
+  flex-direction: column;
+  ${({ itemsAlign }) => {
+    switch (itemsAlign) {
+      case 'center':
+        return `
+          align-items: center;
+        `
+      case 'right':
+        return `
+          flex-direction: row;
+          align-items: flex-end;
+          justify-content: flex-end;
+        `
+      case 'spread':
+        return `
+          flex-direction: row;
+          justify-content: space-between;
+        `
+      default:
+        return ``
+    }
+  }}
+`
+
 export const Button = styled.button`
-  width: 150px;
+  min-width: 150px;
   height: 50px;
   color: ${({ color }) => color && color !== 'gray' ? '#FFFFFF' : '#000000'};
   background-color: ${({ color }) => color ? colorTheme[color] : colorTheme.gray};
   border: none;
   font-size: ${fontSizeTheme.medium};
+  box-sizing: border-box;
+  border: 2px solid #000000;
+  outline: none;
+  margin-left: ${({ marginLeft }) => marginLeft || 'initial'}
 `
 
 export const TextInsideBox = styled.div`
@@ -31,6 +72,8 @@ export const TextInsideBox = styled.div`
   border: 2px solid #000000;
   border-radius: 2px;
   padding: 10px 15px;
+  margin: 10px 0px;
+  background-color: #FFFFFF;
 `
 
 export const TextArea = styled.textarea`
@@ -41,6 +84,7 @@ export const TextArea = styled.textarea`
   box-sizing: border-box;
   border: 2px solid #000000;
   padding: 10px;
+  min-height: 50vh;
 `
 
 export const MarkdownBox = styled.div`

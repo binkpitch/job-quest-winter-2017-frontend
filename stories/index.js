@@ -5,7 +5,21 @@ import '../src/index.css'
 import ReactMarkdown from 'react-remarkable'
 import { Button, TextInsideBox, TextArea, MarkdownBox, TextInput, Text } from '../src/component/styledComponent'
 
-storiesOf('Styled Component', module)
+import Home from '../src/pages/index'
+import Issue from '../src/pages/issue'
+
+import NewIssue from '../src/component/newIssue'
+import DeleteIssue from '../src/component/deleteIssue'
+
+storiesOf('Pages', module)
+  .add('Home', () => <Home />)
+  .add('Issue', () => <Issue />)
+
+storiesOf('Custom Components', module)
+  .add('New Issue', () => <NewIssue />)
+  .add('Delete Issue', () => <DeleteIssue />)
+
+storiesOf('Styled Components', module)
   .add('Button', () => [
     <div>
       <Button color='green'>Open Issue</Button>
