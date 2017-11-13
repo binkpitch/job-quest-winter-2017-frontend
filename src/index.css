@@ -1,3 +1,33 @@
-* {
-  font-family:Arial;
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: normal;
+  src: url('./assets/Barlow-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Barlow';
+  font-style: italic;
+  font-weight: normal;
+  src: url('./assets/Barlow-RegularItalic.ttf');
+}
+
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: bold;
+  src: url('./assets/Barlow-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Barlow';
+  font-style: italic;
+  font-weight: bold;
+  src: url('./assets/Barlow-BoldItalic.ttf');
+}
+
+
+
+*[class^='styledComponent'] {
+  font-family: 'Barlow', sans-serif;
 }

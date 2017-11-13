@@ -56,7 +56,7 @@ export function testApiEpic (action$, store, { ajax }) {
     .switchMap(action =>
       ajax({ url, method })
         .map(data => successTestApi(data.response))
-        .catch(error => Observable.of(failureTestApi(error.name)))
+        .catch(error => failureTestApi(error.name))
         .takeUntil(action$.ofType(CLEAR))
     )
 }
