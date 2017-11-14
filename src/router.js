@@ -1,9 +1,10 @@
 import React from 'react'
-import { Route, Switch } from 'react-router'
+import { Route } from 'react-router'
 import { ConnectedRouter } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
 
-import HomePage from './pages/homePage'
+import Home from './pages/home'
+import TestApi from './pages/testApi'
 
 const routerHistory = createHistory()
 
@@ -11,9 +12,8 @@ const router = () => {
   return (
     <ConnectedRouter history={routerHistory}>
       <div>
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-        </Switch>
+        <Route exact path='/' component={Home} />
+        <Route exact path='/testApi' component={TestApi} />
       </div>
     </ConnectedRouter>
   )

@@ -13,6 +13,19 @@ const fontSizeTheme = {
   small: '16px'
 }
 
+export const Modal = styled.div`
+  position: absolute;
+  z-index: 10;
+  left: 10vw;
+  top: 10px;
+  box-sizing: border-box;
+  background-color: #FFFFFF;
+  height: auto;
+  border: 2px solid #000000;
+  width: 80%;
+  padding: 0 10%;
+`
+
 export const MainWrapper = styled.div`
   width: 80%;
   box-sizing: border-box;
@@ -85,6 +98,7 @@ export const TextArea = styled.textarea`
   border: 2px solid #000000;
   padding: 10px;
   min-height: 50vh;
+  outline: none;
 `
 
 export const MarkdownBox = styled.div`
@@ -103,5 +117,6 @@ export const TextInput = styled.input`
 `
 
 export const Text = styled.div`
-font-size: ${({ size }) => size ? fontSizeTheme[size] : fontSizeTheme.medium};
+  font-size: ${({ size }) => size ? fontSizeTheme[size] : fontSizeTheme.medium};
+  color: ${({ color }) => color ? colorTheme[color] : 'initial'};
 `

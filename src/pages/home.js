@@ -1,43 +1,65 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { actionCreators } from '../redux/testApi'
-import styled, { css } from 'styled-components'
+import React, { Component } from 'react'
+import gpl from 'graphql-tag'
+import { graphql } from 'react-apollo'
+import shortid from 'shortid'
+import NewIssue from '../component/newIssue'
+import { MainWrapper, Row, TextInsideBox, Button } from '../component/styledComponent'
 
-const Button = styled.button`
-  border-radius: 3px;
-  padding: 0.25em 1em;
-  margin: 0 1em;
-  background: transparent;
-  color: #2B65EC;
-  border: 2px solid #2B65EC;
-  outline: none;
+class Home extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {}
+  }
 
-  ${props => props.primary && css`
-    background: #2B65EC;
-    color: white;
-  `}
-`
+  componentWillReceiveProps (nextProps) {
+    const { todos } = nextProps.data
+    if (todos) {
+      this.setState({ todos: todos.slice().reverse() })
+    }
+  }
 
-const home = (props) => {
-  return (
-    <div>
-      <p>React Redux Boilerplate</p>
-      <p>{props.error}</p>
-      <Button primary onClick={props.requestTestApi}>Test API</Button>
-      <Button onClick={props.clearTestApi}>Clear</Button>
-      <p>userId = {props.response && props.response.userId}</p>
-      <p>id = {props.response && props.response.id}</p>
-      <p>title = {props.response && props.response.title}</p>
-      <p>body = {props.response && props.response.body}</p>
-    </div>
-  )
-}
+  render () {
+    const { loading, error } = this.props.data
+    const { todos } = this.state
+    return (
+      <MainWrapper>
+        <Row>
+          <TextInsideBox header>is:issue</TextInsideBox>
+        </Row>
+        <Row itemsAlign='right'>
+          <Button onClick={() => this.setState({ isOpenNewIssueModal: true })} color='green'>New Issue</Button>
+        </Row>
+        <Row>
+          {
+            !loading && !error && todos.map(todo => (
+              <TextInsideBox key={shortid.generate()} disabled={todo.closed}>
+                {todo.closed && '(Closed)'} {todo.title}
+              </TextInsideBox>
+            ))
+          }
+        </Row>
 
-const mapStateToProps = (state) => {
-  return {
-    response: state.testApi.response,
-    error: state.testApi.error
+        {
+          this.state.isOpenNewIssueModal &&
+            <NewIssue
+              handleAddIssue={(issue) => this.setState({ todos: [issue, ...todos] })}
+              handleCloseModal={() => this.setState({ isOpenNewIssueModal: false })}
+              />
+        }
+      </MainWrapper>
+    )
   }
 }
 
-export default connect(mapStateToProps, actionCreators)(home)
+const getTodos = gpl`
+{
+  todos {
+    _id
+    title
+    content
+    closed
+  }
+}
+`
+
+export default graphql(getTodos)(Home)
