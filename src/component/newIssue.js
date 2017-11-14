@@ -19,7 +19,6 @@ class NewIssue extends Component {
     const { title, content } = this.state
 
     if (!title || !content) {
-      console.log('@NewIssue Missing title and description')
       this.setState({ error: 'Please write the title and fill in the desciption.' })
       return
     }
@@ -27,8 +26,8 @@ class NewIssue extends Component {
     mutate({
       variables: { title, content }
     })
-    .then(({ data }) => {
-      handleAddIssue({ title, content, closed: false })
+    .then(({ data: { addTodo } }) => {
+      handleAddIssue(addTodo)
       handleCloseModal()
     })
     .catch((err) => this.setState({ error: err }))
@@ -44,17 +43,7 @@ class NewIssue extends Component {
           <TextInput onChange={(event) => this.setState({ title: event.target.value })} placeholder='Title...' />
         </Row>
         <Row>
-          <TextArea
-            onChange={(event) => this.setState({ content: event.target.value })}
-            defaultValue={
-`**What is the current behavior?**
-
-
-**What is the expected behavior?**
-
-`
-            }
-          />
+          <TextArea onChange={(event) => this.setState({ content: event.target.value })} placeholder='Description...  (Markdown supported)' />
         </Row>
 
         {
@@ -70,9 +59,10 @@ class NewIssue extends Component {
   }
 }
 
-const addTodo = gpl`
-mutation addTodo($title: String!, $content: String!) {
+const addNewIssue = gpl`
+mutation addNewIssue($title: String!, $content: String!) {
   addTodo(title: $title, content: $content) {
+    _id
     title
     content
     closed
@@ -80,4 +70,4 @@ mutation addTodo($title: String!, $content: String!) {
 }
 `
 
-export default graphql(addTodo)(NewIssue)
+export default graphql(addNewIssue)(NewIssue)
