@@ -2,13 +2,25 @@ import React, { Component } from 'react'
 import gpl from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import shortid from 'shortid'
+import qs from 'qs'
+import { Link } from 'react-router-dom'
 import NewIssue from '../component/newIssue'
 import { MainWrapper, Row, TextInsideBox, Button } from '../component/styledComponent'
 
 class Home extends Component {
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {
+      todos: props.data.todos || []
+    }
+  }
+
+  componentDidMount () {
+    const { location, data } = this.props
+    const { refetch } = qs.parse(location.search, { ignoreQueryPrefix: true })
+    if (refetch) {
+      data.refetch()
+    }
   }
 
   componentWillReceiveProps (nextProps) {
@@ -31,10 +43,12 @@ class Home extends Component {
         </Row>
         <Row>
           {
-            !loading && !error && todos.map(todo => (
-              <TextInsideBox key={shortid.generate()} disabled={todo.closed}>
-                {todo.closed && '(Closed)'} {todo.title}
-              </TextInsideBox>
+            !loading && !error && todos.map(({_id, title, closed}) => (
+              <Link to={`/issue/${_id}`} key={shortid.generate()}>
+                <TextInsideBox disabled={closed}>
+                  {closed && '(Closed)'} {title}
+                </TextInsideBox>
+              </Link>
             ))
           }
         </Row>
