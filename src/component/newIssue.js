@@ -43,7 +43,7 @@ class NewIssue extends Component {
           <TextInput onChange={(event) => this.setState({ title: event.target.value })} placeholder='Title...' />
         </Row>
         <Row>
-          <TextArea onChange={(event) => this.setState({ content: event.target.value })} placeholder='Description...' />
+          <TextArea onChange={(event) => this.setState({ content: event.target.value })} placeholder='Description...  (Markdown supported)' />
         </Row>
 
         {
