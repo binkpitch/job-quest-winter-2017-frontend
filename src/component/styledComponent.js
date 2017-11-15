@@ -93,6 +93,16 @@ export const TextInsideBox = styled.div`
   background-color: #FFFFFF;
 `
 
+export const TextInsideBoxAnimated = TextInsideBox.extend`
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:hover {
+    border-color: ${({ disabled }) => disabled ? colorTheme.red : colorTheme.green}
+  }
+`
+
 export const TextArea = styled.textarea`
   resize: none;
   height: 100%;

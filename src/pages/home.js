@@ -5,7 +5,7 @@ import shortid from 'shortid'
 import qs from 'qs'
 import { Link } from 'react-router-dom'
 import NewIssue from '../component/newIssue'
-import { MainWrapper, Row, TextInsideBox, Button } from '../component/styledComponent'
+import { MainWrapper, Row, TextInsideBox, TextInsideBoxAnimated, Button } from '../component/styledComponent'
 
 class Home extends Component {
   constructor (props) {
@@ -45,9 +45,9 @@ class Home extends Component {
           {
             !loading && !error && todos.map(({_id, title, closed}) => (
               <Link to={`/issue/${_id}`} key={shortid.generate()}>
-                <TextInsideBox disabled={closed}>
+                <TextInsideBoxAnimated disabled={closed}>
                   {closed && '(Closed)'} {title}
-                </TextInsideBox>
+                </TextInsideBoxAnimated>
               </Link>
             ))
           }
