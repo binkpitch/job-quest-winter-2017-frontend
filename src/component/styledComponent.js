@@ -78,6 +78,10 @@ export const Button = styled.button`
  &:active {
     transform: scale(0.9);
   }
+
+  &:hover {
+    border: 3px solid #000000;
+  }
 `
 
 export const TextInsideBox = styled.div`
