@@ -65,7 +65,7 @@ export const Row = styled.div`
 
 export const Button = styled.button`
   min-width: 150px;
-  height: 50px;
+  min-height: 50px;
   color: ${({ color }) => color && color !== 'gray' ? '#FFFFFF' : '#000000'};
   background-color: ${({ color }) => color ? colorTheme[color] : colorTheme.gray};
   border: none;
@@ -73,7 +73,11 @@ export const Button = styled.button`
   box-sizing: border-box;
   border: 2px solid #000000;
   outline: none;
-  margin-left: ${({ marginLeft }) => marginLeft || 'initial'}
+  margin-left: ${({ marginLeft }) => marginLeft || 'initial'};
+
+ &:active {
+    transform: scale(0.9);
+  }
 `
 
 export const TextInsideBox = styled.div`
