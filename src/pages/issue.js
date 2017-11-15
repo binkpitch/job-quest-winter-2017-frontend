@@ -34,7 +34,7 @@ class Issue extends Component {
     return (
       <MainWrapper white>
         <Row itemsAlign='spread'>
-          <Link to='/'>
+          <Link to='/?refetch=true'>
             <Button>Back</Button>
           </Link>
           <Button color='red' onClick={() => this.setState({ isOpenDeleteIssueModal: true })}>Delete</Button>
